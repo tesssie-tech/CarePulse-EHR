@@ -1,0 +1,44 @@
+# Node.js
+##########
+
+# Dependencies
+/node_modules
+
+# Build output
+/build
+/dist
+/lib
+/es6
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Other
+.env
+.DS_Store
+
+# Test reports
+/coverage
+/reports
+
+# Python
+##########
+
+# Virtual Environment
+/venv
+__pycache__/
+*.pyc
+
+# Distribution / packaging
+*.egg-info/
+.ipynb_checkpoints
