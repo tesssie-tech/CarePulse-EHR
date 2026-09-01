@@ -6,7 +6,7 @@ export default function LoginView({ onAuth, authLoading }) {
   const [phone, setPhone] = useState('');
   const [token, setToken] = useState('');
   const [otpSent, setOtpSent] = useState(false);
-  
+
   // Network State Handler
   const [isOnline, setIsOnline] = useState(navigator.onLine);
 
@@ -31,13 +31,13 @@ export default function LoginView({ onAuth, authLoading }) {
       setDeferredPrompt(e);
       setIsInstallable(true);
     };
-    
+
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
     window.addEventListener('appinstalled', () => {
       setIsInstallable(false);
       setDeferredPrompt(null);
     });
-    
+
     return () => window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
   }, []);
 
@@ -64,7 +64,7 @@ export default function LoginView({ onAuth, authLoading }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Convert local format to international format without '+' to match Supabase Test OTPs exactly
     let formattedPhone = phone.trim();
     if (formattedPhone.startsWith('0')) formattedPhone = '234' + formattedPhone.slice(1);
@@ -114,7 +114,7 @@ export default function LoginView({ onAuth, authLoading }) {
                   <p className="text-[10px] text-slate-400">Enable native offline caching</p>
                 </div>
               </div>
-              <button 
+              <button
                 onClick={handleInstallClick}
                 className="bg-teal-500 hover:bg-teal-400 text-slate-950 px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest shadow-lg transition-transform hover:scale-105 shrink-0 ml-2"
               >
@@ -127,7 +127,7 @@ export default function LoginView({ onAuth, authLoading }) {
 
       <div className="w-full max-w-md animate-in fade-in zoom-in duration-500">
         <div className="flex flex-col items-center mb-8">
-    
+
           <h1 className="text-2xl font-black tracking-tighter bg-gradient-to-r from-teal-400 to-emerald-400 bg-clip-text text-transparent">
             CarePulse EHR
           </h1>
@@ -138,9 +138,9 @@ export default function LoginView({ onAuth, authLoading }) {
 
         <div className="bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-teal-500 to-emerald-500" />
-          
+
           <form onSubmit={handleSubmit} className="flex flex-col gap-6 relative z-10">
-            
+
             {!otpSent ? (
               <>
                 <div>
@@ -219,7 +219,7 @@ export default function LoginView({ onAuth, authLoading }) {
             ) : (
               <div className="animate-in slide-in-from-right-4 duration-300">
                 <label className="block text-[10px] text-slate-500 uppercase font-black tracking-widest mb-2">
-                  Verification Code (OTP)
+                  Password
                 </label>
                 <div className="relative group">
                   <input
@@ -235,7 +235,7 @@ export default function LoginView({ onAuth, authLoading }) {
                   </div>
                 </div>
                 <p className="text-[10px] text-slate-500 mt-3 text-center">
-                  A secure code was sent to <span className="text-slate-300 font-bold">{phone}</span>
+                  Enter your password for <span className="text-slate-300 font-bold">{phone}</span>
                 </p>
               </div>
             )}
@@ -248,14 +248,14 @@ export default function LoginView({ onAuth, authLoading }) {
               {authLoading ? (
                 <><Loader2 className="w-4 h-4 animate-spin" /> Authenticating...</>
               ) : otpSent ? (
-                <>Verify & Access Registry <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" /></>
+                <>Verify <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" /></>
               ) : isSignUp ? (
-                <><UserPlus className="w-4 h-4" /> Send Registration OTP</>
+                <><UserPlus className="w-4 h-4" /> Register Account</>
               ) : (
-                <>Send Secure OTP <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" /></>
+                <><KeyRound className="w-4 h-4" /> Send Secure Password Link <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" /></>
               )}
             </button>
-            
+
             <div className="text-center pt-2">
               <button
                 type="button"
@@ -269,8 +269,8 @@ export default function LoginView({ onAuth, authLoading }) {
                 }}
                 className="text-[10px] font-bold text-slate-400 hover:text-teal-400 transition-colors uppercase tracking-widest"
               >
-                {otpSent 
-                  ? "Didn't receive code? Go back" 
+                {otpSent
+                  ? "Didn't receive it? Go back"
                   : isSignUp ? "Already have an account? Sign In" : "Need authorization? Register Account"}
               </button>
             </div>
@@ -283,13 +283,13 @@ export default function LoginView({ onAuth, authLoading }) {
           </p>
           <div className="flex items-center justify-center gap-4 mt-4 opacity-20">
              <div className="w-8 h-8 rounded bg-slate-800 flex items-center justify-center">
-            
+
              </div>
              <div className="w-8 h-8 rounded bg-slate-800 flex items-center justify-center">
-              
+
              </div>
              <div className="w-8 h-8 rounded bg-slate-800 flex items-center justify-center">
-             
+
              </div>
           </div>
         </div>
